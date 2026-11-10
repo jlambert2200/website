@@ -1,6 +1,6 @@
 // Edit this file to change your name, intro and links everywhere on the site.
 export const SITE = {
-  name: 'Your Name',
+  name: 'Jensen Lambert',
   tagline: 'Writing, running, and art I can’t stop thinking about.',
   intro:
     'A sentence or two about you goes here: what you do, what you’re curious about, and what people will find on this site.',
