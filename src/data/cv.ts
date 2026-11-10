@@ -137,6 +137,12 @@ export const CV = {
 
   samples: [
     {
+      title: 'What French Grocery Stores Have to Teach Every Supply Chain Device Vendor',
+      where: 'ABI Research',
+      date: 'Nov 2026',
+      href: 'https://www.abiresearch.com/market-research/insight/7788682-what-french-grocery-stores-have-to-teach-e',
+    },
+    {
       title: 'World Trade Center Utah Tariff Dashboard',
       where: 'WTCUtah.com',
       date: 'Feb 2025',
@@ -147,12 +153,6 @@ export const CV = {
       where: 'LinkedIn',
       date: 'Dec 2023',
       href: 'https://www.linkedin.com/posts/jensen-lambert_grand-strategy-japans-reliance-on-us-nuclear-activity-7154292167690047488-UY9D',
-    },
-    {
-      title: 'Gang Violence in the Northern Triangle',
-      where: 'LinkedIn',
-      date: 'May 2022',
-      href: 'https://www.linkedin.com/posts/jensen-lambert_effects-of-gang-presence-on-youth-in-the-activity-7154297609971470336-2Ub-',
     },
   ],
 };
