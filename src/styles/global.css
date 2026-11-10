@@ -2,8 +2,20 @@
 @plugin "@tailwindcss/typography";
 
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-medium: "Instrument Serif", Georgia, serif;
+  --font-sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+  /* Accent: a muted moss green taken from the hillside in the homepage photo */
+  --color-moss-50: oklch(0.97 0.012 140);
+  --color-moss-100: oklch(0.94 0.02 140);
+  --color-moss-200: oklch(0.88 0.03 140);
+  --color-moss-300: oklch(0.8 0.045 140);
+  --color-moss-400: oklch(0.7 0.055 140);
+  --color-moss-500: oklch(0.6 0.06 140);
+  --color-moss-600: oklch(0.5 0.06 140);
+  --color-moss-700: oklch(0.42 0.055 140);
+  --color-moss-800: oklch(0.35 0.045 140);
+  --color-moss-900: oklch(0.28 0.035 140);
+  --color-moss-950: oklch(0.2 0.025 140);
 }
 
 html {
