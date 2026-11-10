@@ -4,6 +4,7 @@ import Base from '../layouts/Base.astro';
 import SectionTitle from '../components/SectionTitle.astro';
 import PostRow from '../components/PostRow.astro';
 import ArtCard from '../components/ArtCard.astro';
+import StravaBlock from '../components/StravaBlock.astro';
 import { SITE } from '../site.config';
 import { url, byDateDesc } from '../lib/utils';
 import { trainingStats } from '../lib/training';
@@ -84,7 +85,11 @@ const unit = SITE.distanceUnit;
 
     <!-- Training -->
     <section>
-      <SectionTitle title="Training" href="/training/" linkLabel="Training log" />
+      <SectionTitle title="Training" href="/training/" linkLabel="More" />
+      {
+        allTraining.length === 0 ? (
+          <StravaBlock />
+        ) : (
       <div class="grid gap-4 md:grid-cols-[1fr_1.4fr]">
         <div
           class="rounded-2xl bg-linear-to-br from-moss-600 to-moss-500 p-6 text-white shadow-lg shadow-moss-500/20"
@@ -110,6 +115,8 @@ const unit = SITE.distanceUnit;
           }
         </div>
       </div>
+        )
+      }
     </section>
   </div>
 </Base>
