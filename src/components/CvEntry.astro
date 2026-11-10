@@ -1,0 +1,29 @@
+---
+interface Props {
+  org: string;
+  role: string;
+  place: string;
+  dates: string;
+  points: string[];
+}
+const { org, role, place, dates, points } = Astro.props;
+---
+
+<article class="grid gap-x-10 gap-y-2 border-t border-slate-200 py-7 md:grid-cols-[11rem_1fr] dark:border-slate-800">
+  <p class="text-sm text-slate-500 tabular-nums dark:text-slate-400">{dates}</p>
+  <div>
+    <h3 class="text-lg font-semibold tracking-tight">{org}</h3>
+    <p class="mt-0.5 text-slate-600 dark:text-slate-300">
+      {role}<span class="text-slate-500 dark:text-slate-400"> · {place}</span>
+    </p>
+    <ul class="mt-4 space-y-2 text-slate-700 dark:text-slate-300">
+      {
+        points.map((point) => (
+          <li class="relative pl-5 leading-relaxed before:absolute before:top-[0.7em] before:left-0 before:size-1.5 before:rounded-full before:bg-teal-600 dark:before:bg-teal-400">
+            {point}
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</article>
