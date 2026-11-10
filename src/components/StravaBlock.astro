@@ -1,0 +1,77 @@
+---
+import { SITE } from '../site.config';
+import { loadStrava, distance, duration, pace } from '../lib/strava';
+import { formatDate } from '../lib/utils';
+
+const data = loadStrava();
+const unit = SITE.distanceUnit;
+const weeks = data?.weeks ?? [];
+const max = Math.max(...weeks.map((w) => w.meters), 1);
+const latest = data?.latest;
+const isRun = latest && ['Run', 'TrailRun', 'VirtualRun'].includes(latest.type);
+const typeLabel = latest?.type.replace(/([a-z])([A-Z])/g, '$1 $2');
+const shortDate = (iso: string) =>
+  new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric', timeZone: 'UTC' });
+---
+
+{
+  data && (
+    <section class="mb-14 grid gap-4 md:grid-cols-[1fr_1.3fr]">
+      {latest && (
+        <a
+          href={`https://www.strava.com/activities/${latest.id}`}
+          target="_blank"
+          rel="noopener"
+          class="group flex flex-col rounded-2xl border border-slate-200 bg-white/80 p-6 shadow-sm transition hover:border-moss-300 hover:shadow-md dark:border-slate-800 dark:bg-slate-900/60 dark:hover:border-moss-700"
+        >
+          <p class="text-sm text-slate-500 dark:text-slate-400">
+            Latest activity · {typeLabel} · {formatDate(new Date(latest.date))}
+          </p>
+          <h2 class="mt-2 text-2xl font-semibold tracking-tight group-hover:text-moss-700 dark:group-hover:text-moss-300">
+            {latest.name}
+          </h2>
+          <dl class="mt-6 grid grid-cols-3 gap-4">
+            <div>
+              <dt class="text-xs text-slate-500 dark:text-slate-400">Distance</dt>
+              <dd class="mt-1 text-xl font-semibold tabular-nums">
+                {distance(latest.meters, unit)} <span class="text-sm font-medium">{unit}</span>
+              </dd>
+            </div>
+            <div>
+              <dt class="text-xs text-slate-500 dark:text-slate-400">Time</dt>
+              <dd class="mt-1 text-xl font-semibold tabular-nums">{duration(latest.movingSeconds)}</dd>
+            </div>
+            {isRun && (
+              <div>
+                <dt class="text-xs text-slate-500 dark:text-slate-400">Pace</dt>
+                <dd class="mt-1 text-xl font-semibold tabular-nums">
+                  {pace(latest.meters, latest.movingSeconds, unit)}
+                </dd>
+              </div>
+            )}
+          </dl>
+          <p class="mt-auto pt-6 text-sm font-medium text-[#FC5200]">View on Strava ↗</p>
+        </a>
+      )}
+
+      <div class="rounded-2xl border border-slate-200 bg-white/80 p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900/60">
+        <p class="text-sm text-slate-500 dark:text-slate-400">Weekly running, last 6 weeks</p>
+        <ol class="mt-4 flex h-44 items-end gap-3" aria-label={`Weekly running distance in ${unit}`}>
+          {weeks.map((w) => (
+            <li class="flex h-full flex-1 flex-col items-center justify-end gap-2">
+              <span class="text-sm font-semibold tabular-nums">{distance(w.meters, unit)}</span>
+              <span
+                class="w-full rounded-md bg-moss-500 dark:bg-moss-400"
+                style={`height: ${Math.max((w.meters / max) * 100, 1.5)}%`}
+              />
+              <span class="text-xs whitespace-nowrap text-slate-500 dark:text-slate-400">{shortDate(w.start)}</span>
+            </li>
+          ))}
+        </ol>
+        <p class="mt-4 text-xs text-slate-500 dark:text-slate-400">
+          {unit === 'mi' ? 'Miles' : 'Kilometers'} per week, by week starting Monday · Powered by Strava
+        </p>
+      </div>
+    </section>
+  )
+}

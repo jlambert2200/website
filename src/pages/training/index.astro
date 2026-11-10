@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import PageHeader from '../../components/PageHeader.astro';
 import PostRow from '../../components/PostRow.astro';
+import StravaBlock from '../../components/StravaBlock.astro';
 import { SITE } from '../../site.config';
 import { url, byDateDesc } from '../../lib/utils';
 import { trainingStats } from '../../lib/training';
@@ -20,6 +21,7 @@ const tiles = [
 <Base title="Training">
   <PageHeader title="Training" intro="Notes from my running: workouts, long runs and races." />
   <div class="mx-auto max-w-5xl px-5 pb-24">
+    <StravaBlock />
     <div class="mb-10 grid gap-4 sm:grid-cols-3">
       {
         tiles.map((t) => (
