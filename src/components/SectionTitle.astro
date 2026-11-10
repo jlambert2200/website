@@ -10,12 +10,12 @@ const { title, href, linkLabel = 'See all' } = Astro.props;
 ---
 
 <div class="mb-6 flex items-end justify-between gap-4">
-  <h2 class="font-serif text-3xl tracking-tight sm:text-4xl">{title}</h2>
+  <h2 class="font-medium text-3xl tracking-tight sm:text-4xl">{title}</h2>
   {
     href && (
       <a
         href={url(href)}
-        class="text-sm font-medium text-teal-700 hover:text-teal-900 dark:text-teal-300 dark:hover:text-teal-200"
+        class="text-sm font-medium text-moss-700 hover:text-moss-900 dark:text-moss-300 dark:hover:text-moss-200"
       >
         {linkLabel} →
       </a>
