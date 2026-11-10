@@ -3,7 +3,7 @@ export const SITE = {
   name: 'Jensen Lambert',
   tagline: 'My Words, Pictures, and Interests',
   intro:
-    'I am a technology researcher with a background in geopolitical security and international trade.',
+    'Curious about geopolitics, artificial intelligence, art and running.',
   // Shown in the footer. Leave a link out by deleting its line.
   links: [
     { label: 'Email', href: 'mailto:you@example.com' },
