@@ -57,6 +57,8 @@ const unit = SITE.distanceUnit;
     </section>
 
     <!-- Writing -->
+    {
+      writing.length > 0 && (
     <section>
       <SectionTitle title="Writing" href="/writing/" />
       <div class="grid gap-4 sm:grid-cols-2">
@@ -74,6 +76,8 @@ const unit = SITE.distanceUnit;
         }
       </div>
     </section>
+      )
+    }
 
     <!-- Gallery -->
     <section>
