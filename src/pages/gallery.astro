@@ -9,7 +9,7 @@ const art = (await getCollection('gallery')).sort(byDateDesc);
 ---
 
 <Base title="Gallery">
-  <PageHeader title="Gallery" intro="Art I've seen in person and can't stop thinking about." />
+  <PageHeader title="Gallery" intro="Places and things through my eyes (an iPhone 12)" />
   <div class="mx-auto max-w-5xl columns-1 gap-4 px-5 pb-24 sm:columns-2 lg:columns-3">
     {art.map((a) => <ArtCard title={a.data.title} artist={a.data.artist} seenAt={a.data.seenAt} image={a.data.image} />)}
   </div>
