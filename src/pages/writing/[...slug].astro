@@ -1,0 +1,24 @@
+---
+import { getCollection, render } from 'astro:content';
+import Article from '../../layouts/Article.astro';
+
+// Pieces that link to a file (a PDF) don't need their own page.
+export async function getStaticPaths() {
+  const items = await getCollection('writing', ({ data }) => !data.draft && !data.file);
+  return items.map((item) => ({ params: { slug: item.id }, props: { item } }));
+}
+
+const { item } = Astro.props;
+const { Content } = await render(item);
+---
+
+<Article
+  title={item.data.title}
+  date={item.data.date}
+  summary={item.data.summary}
+  meta={item.data.kind}
+  backHref="/writing/"
+  backLabel="All writing"
+>
+  <Content />
+</Article>

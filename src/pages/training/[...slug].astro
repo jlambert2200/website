@@ -1,0 +1,31 @@
+---
+import { getCollection, render } from 'astro:content';
+import Article from '../../layouts/Article.astro';
+import { SITE } from '../../site.config';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('training');
+  return entries.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const meta = [
+  entry.data.type,
+  entry.data.distance ? `${entry.data.distance} ${SITE.distanceUnit}` : null,
+  entry.data.time,
+]
+  .filter(Boolean)
+  .join(' · ');
+---
+
+<Article
+  title={entry.data.title}
+  date={entry.data.date}
+  summary={entry.data.summary}
+  meta={meta}
+  backHref="/training/"
+  backLabel="Training log"
+>
+  <Content />
+</Article>

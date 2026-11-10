@@ -1,0 +1,36 @@
+---
+import { url } from '../lib/utils';
+
+interface Props {
+  title: string;
+  artist?: string;
+  seenAt?: string;
+  image?: string;
+}
+const { title, artist, seenAt, image } = Astro.props;
+const alt = artist ? `${title} by ${artist}` : title;
+---
+
+<figure class="mb-4 break-inside-avoid">
+  {
+    image ? (
+      <a href={url(image)} class="block overflow-hidden rounded-2xl bg-slate-100 dark:bg-slate-800">
+        <img
+          src={url(image)}
+          alt={alt}
+          loading="lazy"
+          class="w-full transition duration-500 hover:scale-[1.03]"
+        />
+      </a>
+    ) : (
+      <div class="flex aspect-[4/5] items-center justify-center rounded-2xl bg-linear-to-br from-violet-100 via-sky-100 to-pink-100 text-sm text-slate-500 dark:from-violet-950 dark:via-slate-900 dark:to-pink-950 dark:text-slate-400">
+        Add a photo
+      </div>
+    )
+  }
+  <figcaption class="mt-2 px-1 text-sm">
+    <span class="font-medium">{title}</span>
+    {artist && <span class="text-slate-500 dark:text-slate-400"> · {artist}</span>}
+    {seenAt && <span class="block text-slate-500 dark:text-slate-400">{seenAt}</span>}
+  </figcaption>
+</figure>

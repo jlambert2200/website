@@ -1,0 +1,135 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import SectionTitle from '../components/SectionTitle.astro';
+import PostRow from '../components/PostRow.astro';
+import ArtCard from '../components/ArtCard.astro';
+import { SITE } from '../site.config';
+import { url, byDateDesc } from '../lib/utils';
+import { trainingStats } from '../lib/training';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(byDateDesc).slice(0, 3);
+const writing = (await getCollection('writing', ({ data }) => !data.draft)).sort(byDateDesc).slice(0, 4);
+const art = (await getCollection('gallery')).sort(byDateDesc).slice(0, 3);
+const allTraining = await getCollection('training');
+const training = [...allTraining].sort(byDateDesc).slice(0, 2);
+const stats = trainingStats(allTraining);
+const unit = SITE.distanceUnit;
+---
+
+<Base>
+  <!-- Hero -->
+  <section class="relative overflow-hidden">
+    <div aria-hidden="true" class="pointer-events-none absolute inset-0">
+      <div
+        class="absolute -top-24 left-[10%] size-[28rem] rounded-full bg-violet-300/50 blur-3xl dark:bg-violet-700/25"
+      >
+      </div>
+      <div
+        class="absolute top-10 right-[5%] size-[24rem] rounded-full bg-sky-200/60 blur-3xl dark:bg-sky-700/20"
+      >
+      </div>
+      <div
+        class="absolute -bottom-32 left-[40%] size-[22rem] rounded-full bg-pink-200/50 blur-3xl dark:bg-pink-700/20"
+      >
+      </div>
+    </div>
+    <div class="relative mx-auto max-w-5xl px-5 pt-24 pb-24 sm:pt-32 sm:pb-28">
+      <p
+        class="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/70 px-3.5 py-1.5 text-sm font-medium text-slate-600 backdrop-blur dark:border-slate-700 dark:bg-slate-900/60 dark:text-slate-300"
+      >
+        <span class="size-2 rounded-full bg-emerald-500"></span>
+        {SITE.tagline}
+      </p>
+      <h1 class="mt-6 text-5xl font-bold tracking-tight sm:text-7xl">
+        Hi, I'm <span class="bg-linear-to-r from-violet-600 via-indigo-500 to-sky-500 bg-clip-text text-transparent dark:from-violet-400 dark:via-indigo-300 dark:to-sky-300">{SITE.name}</span>.
+      </h1>
+      <p class="mt-6 max-w-2xl text-lg leading-relaxed text-slate-600 sm:text-xl dark:text-slate-300">
+        {SITE.intro}
+      </p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a
+          href={url('/blog/')}
+          class="rounded-full bg-slate-900 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-slate-900/10 transition hover:bg-slate-700 dark:bg-white dark:text-slate-900 dark:hover:bg-slate-200"
+          >Read the blog</a
+        >
+        <a
+          href={url('/gallery/')}
+          class="rounded-full border border-slate-300 bg-white/70 px-5 py-3 text-sm font-semibold backdrop-blur transition hover:border-slate-400 dark:border-slate-700 dark:bg-slate-900/60 dark:hover:border-slate-500"
+          >See the gallery</a
+        >
+      </div>
+    </div>
+  </section>
+
+  <div class="mx-auto flex max-w-5xl flex-col gap-20 px-5 pb-24">
+    <!-- Blog -->
+    <section>
+      <SectionTitle title="Latest from the blog" href="/blog/" linkLabel="All posts" />
+      <div class="grid gap-4">
+        {
+          posts.map((p) => (
+            <PostRow href={url(`/blog/${p.id}/`)} title={p.data.title} date={p.data.date} summary={p.data.summary} />
+          ))
+        }
+      </div>
+    </section>
+
+    <!-- Writing -->
+    <section>
+      <SectionTitle title="Writing" href="/writing/" />
+      <div class="grid gap-4 sm:grid-cols-2">
+        {
+          writing.map((w) => (
+            <PostRow
+              href={w.data.file ? url(w.data.file) : url(`/writing/${w.id}/`)}
+              external={!!w.data.file}
+              title={w.data.title}
+              date={w.data.date}
+              meta={w.data.kind}
+              summary={w.data.summary}
+            />
+          ))
+        }
+      </div>
+    </section>
+
+    <!-- Gallery -->
+    <section>
+      <SectionTitle title="Art I've seen" href="/gallery/" linkLabel="Full gallery" />
+      <div class="columns-1 gap-4 sm:columns-3">
+        {art.map((a) => <ArtCard title={a.data.title} artist={a.data.artist} seenAt={a.data.seenAt} image={a.data.image} />)}
+      </div>
+    </section>
+
+    <!-- Training -->
+    <section>
+      <SectionTitle title="Training" href="/training/" linkLabel="Training log" />
+      <div class="grid gap-4 md:grid-cols-[1fr_1.4fr]">
+        <div
+          class="rounded-2xl bg-linear-to-br from-violet-600 to-sky-500 p-6 text-white shadow-lg shadow-violet-500/20"
+        >
+          <p class="text-sm font-medium text-white/80">{stats.year} so far</p>
+          <p class="mt-2 text-5xl font-bold tracking-tight">{stats.total} <span class="text-2xl font-semibold">{unit}</span></p>
+          <div class="mt-6 flex gap-8 text-sm">
+            <div><p class="text-white/80">Runs logged</p><p class="text-xl font-semibold">{stats.runs}</p></div>
+            <div><p class="text-white/80">Longest</p><p class="text-xl font-semibold">{stats.longest} {unit}</p></div>
+          </div>
+        </div>
+        <div class="grid gap-4">
+          {
+            training.map((t) => (
+              <PostRow
+                href={url(`/training/${t.id}/`)}
+                title={t.data.title}
+                date={t.data.date}
+                meta={[t.data.type, t.data.distance ? `${t.data.distance} ${unit}` : null].filter(Boolean).join(' · ')}
+                summary={t.data.summary}
+              />
+            ))
+          }
+        </div>
+      </div>
+    </section>
+  </div>
+</Base>
