@@ -9,11 +9,11 @@ const { title, intro } = Astro.props;
 <section class="relative overflow-hidden">
   <div
     aria-hidden="true"
-    class="pointer-events-none absolute -top-32 left-1/2 h-72 w-[48rem] -translate-x-1/2 rounded-full bg-linear-to-r from-violet-200/60 via-sky-200/50 to-pink-200/50 blur-3xl dark:from-violet-700/20 dark:via-sky-700/15 dark:to-pink-700/15"
+    class="pointer-events-none absolute -top-32 left-1/2 h-72 w-[48rem] -translate-x-1/2 rounded-full bg-linear-to-r from-teal-200/60 via-cyan-200/50 to-emerald-200/50 blur-3xl dark:from-teal-700/20 dark:via-cyan-700/15 dark:to-emerald-700/15"
   >
   </div>
   <div class="relative mx-auto max-w-5xl px-5 pt-16 pb-10 sm:pt-20">
-    <h1 class="text-4xl font-bold tracking-tight sm:text-5xl">{title}</h1>
+    <h1 class="font-serif text-5xl tracking-tight sm:text-6xl">{title}</h1>
     {intro && <p class="mt-4 max-w-2xl text-lg text-slate-600 dark:text-slate-400">{intro}</p>}
   </div>
 </section>

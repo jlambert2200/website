@@ -6,9 +6,11 @@ import { url } from '../lib/utils';
 interface Props {
   title?: string;
   description?: string;
+  // Header floats over a full-screen photo (used on the homepage)
+  overlayHeader?: boolean;
 }
 
-const { title, description = SITE.tagline } = Astro.props;
+const { title, description = SITE.tagline, overlayHeader = false } = Astro.props;
 const pageTitle = title ? `${title} · ${SITE.name}` : SITE.name;
 
 const nav = [
@@ -34,19 +36,24 @@ const isActive = (href: string) => current.startsWith(href);
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
   </head>
   <body class="min-h-screen bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-100">
     <header
-      class="sticky top-0 z-20 border-b border-slate-200/70 bg-white/70 backdrop-blur-lg dark:border-slate-800/70 dark:bg-slate-950/70"
+      class:list={[
+        'z-20',
+        overlayHeader
+          ? 'absolute inset-x-0 top-0 text-white'
+          : 'sticky top-0 border-b border-slate-200/70 bg-white/70 backdrop-blur-lg dark:border-slate-800/70 dark:bg-slate-950/70',
+      ]}
     >
       <div class="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-3 px-5 py-3">
         <a href={url('/')} class="flex items-center gap-2 text-base font-semibold tracking-tight">
           <span
             aria-hidden="true"
-            class="size-3 rounded-full bg-linear-to-br from-violet-500 to-sky-400 shadow-[0_0_12px] shadow-violet-400/60"
+            class="size-3 rounded-full bg-linear-to-br from-teal-500 to-cyan-400 shadow-[0_0_12px] shadow-teal-400/60"
           ></span>
           {SITE.name}
         </a>
@@ -60,7 +67,9 @@ const isActive = (href: string) => current.startsWith(href);
                   'rounded-full px-3.5 py-2 font-medium transition-colors',
                   isActive(item.href)
                     ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900'
-                    : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-white',
+                    : overlayHeader
+                      ? 'text-white/85 hover:bg-white/15 hover:text-white'
+                      : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-white',
                 ]}
               >
                 {item.label}
