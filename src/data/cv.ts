@@ -62,7 +62,7 @@ export const CV = {
       org: "King's College London",
       role: 'MA in Intelligence and International Security',
       place: 'London, UK',
-      dates: 'Expected Aug 2026',
+      dates: 'Aug 2026',
       points: [
         'Dissertation on cartel resilience and the use of violence in Mexico',
         '2nd Place, OSINT Capture the Flag Challenge, School of Security Studies',
