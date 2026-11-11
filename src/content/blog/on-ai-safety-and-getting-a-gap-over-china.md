@@ -4,6 +4,10 @@ date: 2026-11-11
 summary: "A US lead in AI is fine. Selling it as protection from a Chinese existential threat is the problem."
 ---
 
+![Officials seated at a long table sign a treaty in a formal White House room](/blog/npt-signing-1968.jpg)
+
+*The signing of the Nuclear Non-Proliferation Treaty at the White House, July 1, 1968. Photo: LBJ Presidential Library.*
+
 Some researchers in Washington work from a consensus that the US must build and hold a lead over China in AI. I think the lead itself is fine. My problem is with how it's being sold. Chinese AI is being treated as a risk larger than AI itself, when what's happening between the US and China is ordinary competition between two powers. Meanwhile, what is happening in frontier labs on our own soil is an unprecedented and unfolding risk scenario. The US lead over China won't last, and when it closes we will need China as a partner in gatekeeping dangerous applications of AI. For this, we can look to lessons learned from the history of nuclear weapons.
 
 Chinese AI models are certainly not limited by talent or research capability. The IP theft streams and illicit tech transfers through covert Chinese operations are real and ongoing, but that shouldn't overshadow the novel innovation and invention Chinese universities and firms are capable of producing.
